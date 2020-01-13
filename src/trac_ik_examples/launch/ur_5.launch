@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+<arg name="limited" default="false" doc="If true, limits joint range [-PI, PI] on all joints." />
+  <arg name="num_samples" default="1" />
+  <arg name="chain_start" default="base" />
+  <arg name="chain_end" default="tool0" />
+  <arg name="timeout" default="0.005" />
+
+<param name="robot_description" command="$(find xacro)/xacro.py '$(find pr2_description)/robots/ur5_robot.urdf.xacro'" />
+<param if="$(arg limited)" name="pr2_description" command="$(find xacro)/xacro --inorder '$(find pr2_description)/urdf/ur5_joint_limited_robot.urdf.xacro'" />
+
+
+  <node name="trac_ik_tests" pkg="trac_ik_examples" type="ur5_ik" output="screen">
+    <param name="num_samples" value="$(arg num_samples)"/>
+    <param name="chain_start" value="$(arg chain_start)"/>
+    <param name="chain_end" value="$(arg chain_end)"/>
+    <param name="timeout" value="$(arg timeout)"/>
+    <param name="urdf_param" value="/robot_description"/>
+    <param name="Kp" value="2.2"/>
+    <param name="Td" value="0.2"/>
+
+    
+  </node>
+
+
+
+
+</launch>
