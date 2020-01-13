@@ -1,0 +1,4 @@
+<launch>
+	  <node name="pen_convert" pkg="vicon_bridge" type="pen_convert" output="screen" />
+
+</launch>
